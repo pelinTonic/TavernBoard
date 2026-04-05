@@ -26,7 +26,4 @@ Mogućnosti:
 		- [ ] DM može kontrolirati sve likove
 		
 	
-$$
-$$
-	
 
