@@ -13,18 +13,18 @@
 
 ### Local environment
 
-- [ ] Install Python 3.11+ and confirm version with `python --version`
-- [ ] Install Node.js 18+ and npm, confirm with `node --version`
-- [ ] Install git and initialise a repo: `git init tavern-board`
-- [ ] Create a Python virtual environment: `python -m venv .venv` and activate it
+- [x] Install Python 3.11+ and confirm version with `python --version`
+- [x] Install Node.js 18+ and npm, confirm with `node --version`
+- [x] Install git and initialise a repo: `git init tavern-board`
+- [x] Create a Python virtual environment: `python -m venv .venv` and activate it
 
 ### Folder structure
 
-- [ ] Create root folders: `backend/`, `frontend/`, `uploads/` at the project root
-- [ ] Inside `backend/` create: `main.py`, `models.py`, `schemas.py`, `database.py`, `websocket_manager.py`
-- [ ] Inside `backend/` create subfolder `routers/` with empty `__init__.py` and five router files: `campaigns.py`, `characters.py`, `maps.py`, `initiative.py`, `battle.py`
-- [ ] Scaffold frontend with Vite: `npm create vite@latest frontend -- --template react`, then `cd frontend && npm install`
-- [ ] Install Tailwind CSS in the frontend: `npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p`
+- [x] Create root folders: `backend/`, `frontend/`, `uploads/` at the project root
+- [x] Inside `backend/` create: `main.py`, `models.py`, `schemas.py`, `database.py`, `websocket_manager.py`
+- [x] Inside `backend/` create subfolder `routers/` with empty `__init__.py` and five router files: `campaigns.py`, `characters.py`, `maps.py`, `initiative.py`, `battle.py`
+- [x] Scaffold frontend with Vite: `npm create vite@latest frontend -- --template react`, then `cd frontend && npm install`
+- [x] Install Tailwind CSS in the frontend: `npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p`
 - [ ] Write a root `.gitignore` covering `.venv/`, `node_modules/`, `__pycache__/`, `*.db`, `uploads/`
 
 ### Python dependencies
