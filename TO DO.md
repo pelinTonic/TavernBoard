@@ -25,15 +25,15 @@
 - [x] Inside `backend/` create subfolder `routers/` with empty `__init__.py` and five router files: `campaigns.py`, `characters.py`, `maps.py`, `initiative.py`, `battle.py`
 - [x] Scaffold frontend with Vite: `npm create vite@latest frontend -- --template react`, then `cd frontend && npm install`
 - [x] Install Tailwind CSS in the frontend: `npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p`
-- [ ] Write a root `.gitignore` covering `.venv/`, `node_modules/`, `__pycache__/`, `*.db`, `uploads/`
+- [x] Write a root `.gitignore` covering `.venv/`, `node_modules/`, `__pycache__/`, `*.db`, `uploads/`
 
 ### Python dependencies
 
-- [ ] `pip install fastapi uvicorn[standard] sqlalchemy python-jose[cryptography] passlib[bcrypt] python-multipart aiofiles`
-- [ ] `pip install weasyprint` (or `reportlab` if weasyprint gives OS-level dependency trouble) `[HARD]`
-- [ ] `pip install websockets` (FastAPI includes it, but pin it explicitly)
-- [ ] Freeze to requirements.txt: `pip freeze > requirements.txt`
-- [ ] Verify the app boots with a minimal FastAPI hello-world before moving on
+- [x] `pip install fastapi uvicorn[standard] sqlalchemy python-jose[cryptography] passlib[bcrypt] python-multipart aiofiles`
+- [x] `pip install weasyprint` (or `reportlab` if weasyprint gives OS-level dependency trouble) `[HARD]`
+- [x] `pip install websockets` (FastAPI includes it, but pin it explicitly)
+- [x] Freeze to requirements.txt: `pip freeze > requirements.txt`
+- [x] Verify the app boots with a minimal FastAPI hello-world before moving on
 
 ---
 
@@ -41,15 +41,15 @@
 
 ### database.py
 
-- [ ] Set up SQLAlchemy engine pointing to SQLite file: `sqlite:///./tavern.db` `[BE]`
-- [ ] Create `SessionLocal` factory and `Base` declarative class `[BE]`
-- [ ] Write a `get_db()` dependency generator for use in route handlers `[BE]`
+- [x] Set up SQLAlchemy engine pointing to SQLite file: `sqlite:///./tavern.db` `[BE]`
+- [x] Create `SessionLocal` factory and `Base` declarative class `[BE]`
+- [x] Write a `get_db()` dependency generator for use in route handlers `[BE]`
 
 ### models.py — SQLAlchemy ORM tables
 
-- [ ] `User` model: `id`, `username`, `hashed_password`, `role` (enum: dm / player), `created_at` `[BE]`
-- [ ] `Campaign` model: `id`, `name`, `description`, `dm_id` (FK → User), `created_at` `[BE]`
-- [ ] `CampaignMember` join table: `campaign_id`, `user_id`, `role` `[BE]`
+- [x] `User` model: `id`, `username`, `hashed_password`, `role` (enum: dm / player), `created_at` `[BE]`
+- [x] `Campaign` model: `id`, `name`, `description`, `dm_id` (FK → User), `created_at` `[BE]`
+- [x] `CampaignMember` join table: `campaign_id`, `user_id`, `role` `[BE]`
 - [ ] `NPC` model: `id`, `campaign_id` (FK), `name`, `description`, `portrait_filename` `[BE]`
 - [ ] `Map` model: `id`, `campaign_id` (FK), `parent_map_id` (nullable self-FK for nesting), `name`, `image_filename` `[BE]`
 - [ ] `Character` model: all D&D 5e fields — str/dex/con/int/wis/cha, hp, max_hp, ac, speed, class, race, level, background, alignment, proficiency_bonus, saving_throws JSON, skills JSON, equipment text, backstory text, notes text, campaign_id, user_id `[BE]`
