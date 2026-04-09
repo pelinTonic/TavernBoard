@@ -3,22 +3,11 @@ from sqlalchemy.sql import func
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from datetime import datetime
 from database import Base
-import enum
 from typing import Optional, List
+from enums import UserRole, TokenType
 
 
-class UserRole(enum.Enum):
 
-    """
-    Enumeration of possible user roles.
-
-    Attributes:
-        dm (str): Represents a dungeon master role.
-        player (str): Represents a regular player role.
-    """
-
-    dm = "dm"
-    player = "player"
 
 class User(Base):
 
@@ -367,10 +356,6 @@ class Spell(Base):
 
 
     character: Mapped["Character"]  = relationship(back_populates = "character_spells")
-
-class TokenType(str, Enum):
-    PC = "pc"
-    ENEMY = "enemy"
 
 class Token(Base):
 

@@ -50,15 +50,15 @@
 - [x] `User` model: `id`, `username`, `hashed_password`, `role` (enum: dm / player), `created_at` `[BE]`
 - [x] `Campaign` model: `id`, `name`, `description`, `dm_id` (FK → User), `created_at` `[BE]`
 - [x] `CampaignMember` join table: `campaign_id`, `user_id`, `role` `[BE]`
-- [ ] `NPC` model: `id`, `campaign_id` (FK), `name`, `description`, `portrait_filename` `[BE]`
-- [ ] `Map` model: `id`, `campaign_id` (FK), `parent_map_id` (nullable self-FK for nesting), `name`, `image_filename` `[BE]`
-- [ ] `Character` model: all D&D 5e fields — str/dex/con/int/wis/cha, hp, max_hp, ac, speed, class, race, level, background, alignment, proficiency_bonus, saving_throws JSON, skills JSON, equipment text, backstory text, notes text, campaign_id, user_id `[BE]`
-- [ ] `Spell` model: `id`, `character_id` (FK), `name`, `level`, `school`, `casting_time`, `range`, `components`, `duration`, `description` `[BE]`
-- [ ] `Token` model: `id`, `campaign_id` (FK), `filename`, `label`, `type` (enum: pc / enemy) `[BE]`
-- [ ] `InitiativeCombatant` model: `id`, `session_id`, `name`, `initiative`, `hp`, `max_hp`, `ac`, `description`, `stat_block` text, `token_id` (nullable FK), `is_player` bool, `user_id` (nullable) `[BE]`
-- [ ] `BattleMapSession` model: `id`, `campaign_id` (FK), `map_image_filename`, `grid_enabled` bool, `grid_size` int `[BE]`
-- [ ] `BattleToken` model: `id`, `session_id` (FK), `token_id` (FK), `x_pct` float, `y_pct` float, `owner_user_id` (nullable) `[BE]`
-- [ ] Call `Base.metadata.create_all(engine)` in `main.py` startup to auto-create tables `[BE]`
+- [x] `NPC` model: `id`, `campaign_id` (FK), `name`, `description`, `portrait_filename` `[BE]`
+- [x] `Map` model: `id`, `campaign_id` (FK), `parent_map_id` (nullable self-FK for nesting), `name`, `image_filename` `[BE]`
+- [x] `Character` model: all D&D 5e fields — str/dex/con/int/wis/cha, hp, max_hp, ac, speed, class, race, level, background, alignment, proficiency_bonus, saving_throws JSON, skills JSON, equipment text, backstory text, notes text, campaign_id, user_id `[BE]`
+- [x] `Spell` model: `id`, `character_id` (FK), `name`, `level`, `school`, `casting_time`, `range`, `components`, `duration`, `description` `[BE]`
+- [x] `Token` model: `id`, `campaign_id` (FK), `filename`, `label`, `type` (enum: pc / enemy) `[BE]`
+- [x] `InitiativeCombatant` model: `id`, `session_id`, `name`, `initiative`, `hp`, `max_hp`, `ac`, `description`, `stat_block` text, `token_id` (nullable FK), `is_player` bool, `user_id` (nullable) `[BE]`
+- [x] `BattleMapSession` model: `id`, `campaign_id` (FK), `map_image_filename`, `grid_enabled` bool, `grid_size` int `[BE]`
+- [x] `BattleToken` model: `id`, `session_id` (FK), `token_id` (FK), `x_pct` float, `y_pct` float, `owner_user_id` (nullable) `[BE]`
+- [x] Call `Base.metadata.create_all(engine)` in `main.py` startup to auto-create tables `[BE]`
 
 ### schemas.py — Pydantic models
 
