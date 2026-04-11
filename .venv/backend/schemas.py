@@ -27,7 +27,6 @@ class UserRead(UserBase):
 
     model_config = ConfigDict(from_attributes=True)
 
-
 class CampaignBase(BaseModel):
 
     name: Optional[List] = None
@@ -50,7 +49,6 @@ class CampaignRead(CampaignBase):
 
     model_config = ConfigDict(from_attributes=True)
 
-
 class CampaignMemberBase(BaseModel):
 
     role: UserRole
@@ -71,12 +69,11 @@ class CampaignMemberRead(CampaignMemberBase):
 
     model_config = ConfigDict(from_attributes=True)
 
-
 class NPCBase(BaseModel):
 
     name: str
-    description: Optional[str]
-    portrait_filename: Optional[str]
+    description: Optional[str] = None
+    portrait_filename: Optional[str] = None
 
 class NPCCreate(NPCBase):
 
@@ -94,7 +91,6 @@ class NPCRead(NPCBase):
     campaign_id: int
 
     model_config = ConfigDict(from_attributes=True)
-
 
 class MapBase(BaseModel):
 
@@ -114,7 +110,6 @@ class MapRead(MapBase):
     campaign_id: int
 
     model_config = ConfigDict(from_attributes=True)
-
 
 class CharacterBase(BaseModel):
     """
@@ -287,6 +282,7 @@ class CharacterUpdate(BaseModel):
     campaign_id: Optional[int] = None
 
 class CharacterRead(CharacterBase):
+
     """
     Schema for returning character data in responses.
     Adds database-generated id, user_id, campaign_id, and created_at.
@@ -297,3 +293,207 @@ class CharacterRead(CharacterBase):
     created_at: Optional[datetime] = None
 
     model_config = ConfigDict(from_attributes=True)
+
+class SpellBase(BaseModel):
+    name: str
+    description: str
+    school: str
+    components: Optional[str] = None
+    level: int = 0
+    casting_time: str
+    range: str
+    duration: str
+
+class SpellCreate(SpellBase):
+    character_id: int  
+
+class SpellUpdate(BaseModel):
+    name: Optional[str] = None
+    description: Optional[str] = None
+    school: Optional[str] = None
+    components: Optional[str] = None
+    level: Optional[int] = None
+    casting_time: Optional[str] = None
+    range: Optional[str] = None
+    duration: Optional[str] = None
+
+class SpellRead(SpellBase):
+    id: int
+    character_id: int
+
+    model_config = ConfigDict(from_attributes=True)
+
+class TokenBase(BaseModel):
+
+    filename: str
+
+class TokenCreate(TokenBase):
+
+    campaign_id: int
+    token_type: TokenType
+    label: str
+
+class TokenUpdate(BaseModel):
+
+    filename: Optional[str] = None
+    label: Optional[str] = None
+    token_type: Optional[TokenType] = None
+
+class TokenRead(TokenBase):
+
+
+    id: int
+    campaign_id: int    
+
+    model_config = ConfigDict(from_attributes=True)
+
+class InitiativeCombatantBase(BaseModel):
+    """
+    Shared fields for InitiativeCombatant schemas.
+    These are all fields that can change during combat —
+    hp changes as damage is taken, initiative can be rerolled,
+    ac can change with spells like Shield of Faith.
+    """
+    name: str
+    initiative: int = 0
+    hp: int = 0
+    max_hp: int = 0
+    ac: int = 10
+    description: Optional[str] = None
+    stat_block: Optional[str] = None
+    is_player: bool = False
+
+class InitiativeCombatantCreate(InitiativeCombatantBase):
+    """
+    Schema for adding a combatant to an initiative tracker.
+    Requires session_id to link to a battle session.
+    token_id and user_id are optional —
+    enemies won't have a user_id and not every combatant has a token.
+    """
+    session_id: int
+    token_id: Optional[int] = None
+    user_id: Optional[int] = None
+
+class InitiativeCombatantUpdate(BaseModel):
+    """
+    Schema for updating a combatant mid combat.
+    Every field is optional — most commonly used to update
+    just hp when damage is taken, or initiative at start of round.
+    """
+    name: Optional[str] = None
+    initiative: Optional[int] = None
+    hp: Optional[int] = None
+    max_hp: Optional[int] = None
+    ac: Optional[int] = None
+    description: Optional[str] = None
+    stat_block: Optional[str] = None
+    is_player: Optional[bool] = None
+    token_id: Optional[int] = None
+    user_id: Optional[int] = None
+
+class InitiativeCombatantRead(InitiativeCombatantBase):
+    """
+    Schema for returning combatant data in responses.
+    Adds database generated id and the foreign keys
+    session_id, token_id, user_id.
+    """
+    id: int
+    session_id: int
+    token_id: Optional[int] = None
+    user_id: Optional[int] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+class BattleMapSessionBase(BaseModel):
+    """
+    Shared fields for BattleMapSession schemas.
+    These are all changeable — the DM might swap the map image,
+    or toggle the grid on and off during a session.
+    """
+    map_image_filename: str
+    grid_enabled: bool = False
+    grid_size: int = 50
+
+class BattleMapSessionCreate(BattleMapSessionBase):
+    """
+    Schema for creating a new battle map session.
+    Requires campaign_id to link the session to a campaign.
+    """
+    campaign_id: int
+
+class BattleMapSessionUpdate(BaseModel):
+    """
+    Schema for updating a battle map session.
+    All fields optional — for example the DM may just want
+    to toggle the grid without changing the map image.
+    """
+    map_image_filename: Optional[str] = None
+    grid_enabled: Optional[bool] = None
+    grid_size: Optional[int] = None
+
+class BattleMapSessionRead(BattleMapSessionBase):
+    """
+    Schema for returning battle map session data in responses.
+    Adds database generated id and campaign_id.
+    """
+    id: int
+    campaign_id: int
+
+    model_config = ConfigDict(from_attributes=True)
+
+class BattleTokenBase(BaseModel):
+    """
+    Shared fields for BattleToken schemas.
+    x_pct and y_pct store position as a percentage (0.0 - 1.0)
+    of the map width/height so positions work on any screen size.
+    These are in Base because they change every time a token is moved.
+    """
+    x_pct: float
+    y_pct: float
+
+class BattleTokenCreate(BattleTokenBase):
+    """
+    Schema for placing a token on the battle map.
+    Requires session_id and token_id to link the placement.
+    owner_user_id is optional — enemy tokens have no owner.
+    """
+    session_id: int
+    token_id: int
+    owner_user_id: Optional[int] = None
+
+class BattleTokenUpdate(BaseModel):
+    """
+    Schema for updating a battle token.
+    Most commonly used to update x_pct and y_pct
+    when a token is dragged to a new position on the map.
+    owner_user_id can also change if token ownership is transferred.
+    """
+    x_pct: Optional[float] = None
+    y_pct: Optional[float] = None
+    owner_user_id: Optional[int] = None
+
+class BattleTokenRead(BattleTokenBase):
+
+    """
+    Schema for returning battle token data in responses.
+    Adds database generated id and all foreign keys.
+    owner_user_id is optional since enemy tokens have no owner.
+    """
+    id: int
+    session_id: int
+    token_id: int
+    owner_user_id: Optional[int] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+class TokenPayload(BaseModel):
+    """
+    Schema representing the payload inside a JWT token.
+    
+    sub  — subject, usually the user's id
+    role — the user's role (DM or PLAYER) for authorization
+    exp  — expiration timestamp, generated when token is created
+    """
+    sub: int          
+    role: UserRole     
+    exp: datetime      

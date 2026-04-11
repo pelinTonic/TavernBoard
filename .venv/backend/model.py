@@ -146,7 +146,7 @@ class Map(Base):
         children (List[Map]): List of child maps.
     """
 
-    __tablename__ = "Mapmodel"
+    __tablename__ = "maps"
 
     id: Mapped[int] = mapped_column(primary_key = True, index = True)
     campaign_id: Mapped[int] = mapped_column(ForeignKey("campaign.id"))
@@ -341,14 +341,14 @@ class Spell(Base):
         character (Character): The character who owns the spell.
     """
 
-    __tablename__ = "Spells"
+    __tablename__ = "spells"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     character_id: Mapped[int] = mapped_column(ForeignKey("characters.id"))
-    name: Mapped[String] = mapped_column(String)
-    school: Mapped[String] = mapped_column(String)
-    components: Mapped[String] = mapped_column(String)
-    description: Mapped[String] = mapped_column(String)
+    name: Mapped[str] = mapped_column(String)
+    school: Mapped[str] = mapped_column(String)
+    components: Mapped[Optional[str]] = mapped_column(String)
+    description: Mapped[str] = mapped_column(String)
     level: Mapped[int] = mapped_column(default = 0)
     casting_time: Mapped[str] = mapped_column(String)
     range: Mapped[str] = mapped_column(String)
@@ -375,14 +375,14 @@ class Token(Base):
         battle_tokens (List[BattleToken]): Token placements in sessions.
     """
 
-    __tablename__="Token"
+    __tablename__="tokens"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
-    campaign_id: Mapped[Optional[int]] = mapped_column(ForeignKey("campaign.id"))
+    campaign_id: Mapped[int] = mapped_column(ForeignKey("campaign.id"))
     filename: Mapped[Optional[str]] = mapped_column(String)
+    label: Mapped[str] = mapped_column(String(100))
     token_type: Mapped[TokenType] = mapped_column(Enum(TokenType))
     
-
 
     campaign: Mapped[Optional["Campaign"]] = relationship(back_populates="token")
     combatants: Mapped[List["InitiativeCombatant"]] = relationship(back_populates="token")
@@ -424,12 +424,12 @@ class InitiativeCombatant(Base):
     max_hp: Mapped[int] = mapped_column(default=0)
     ac: Mapped[int] = mapped_column(default=10)
     description: Mapped[Optional[str]] = mapped_column(String(500))
-    stat_block: Mapped[Optional[str]] = mapped_column(Text)
+    stat_block: Mapped[Optional[str]] = mapped_column(String)
     token_id: Mapped[Optional[int]] = mapped_column(ForeignKey("tokens.id"))
     is_player: Mapped[bool] = mapped_column(default=False)
     user_id: Mapped[Optional[int]] = mapped_column(ForeignKey("users.id"))
 
-    # Relationships
+
     session: Mapped["BattleMapSession"] = relationship(back_populates="combatants")
     token: Mapped[Optional["Token"]] = relationship(back_populates="combatants")
     user: Mapped[Optional["User"]] = relationship(back_populates="combatants")   

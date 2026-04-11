@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Schemas.md",
+                "file": "TO DO.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Schemas"
+              "title": "TO DO"
             }
           }
         ]
@@ -203,10 +203,11 @@
       "bases:Create new base": false
     }
   },
-  "active": "64e9f01dc72209f7",
+  "active": "d4092455160fe797",
   "lastOpenFiles": [
-    "TO DO.md",
+    "config.env",
     "Schemas.md",
+    "TO DO.md",
     "frontend/requirements.txt",
     "frontend/node_modules/@napi-rs/wasm-runtime/package.json",
     "frontend/node_modules/@napi-rs/wasm-runtime/runtime.js",
@@ -240,7 +241,6 @@
     "frontend/node_modules/@tailwindcss/oxide-linux-x64-gnu/README.md",
     "frontend/node_modules/autoprefixer/README.md",
     "frontend/node_modules/fraction.js/README.md",
-    "frontend/node_modules/fraction.js/CHANGELOG.md",
     "frontend/src/assets/vite.svg",
     "frontend/src/assets/react.svg",
     "frontend/src/assets/hero.png",

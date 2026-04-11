@@ -62,9 +62,9 @@
 
 ### schemas.py — Pydantic models
 
-- [ ] Write Base/Create/Update/Read schema pairs for every model above using pydantic v2 style `[BE]`
-- [ ] Add token-response schemas (`UserRead` without `hashed_password`, etc.) `[BE]`
-- [ ] Write `TokenPayload` schema (`sub`, `role`, `exp`) for JWT `[BE]`
+- [x] Write Base/Create/Update/Read schema pairs for every model above using pydantic v2 style `[BE]`
+- [x] Add token-response schemas (`UserRead` without `hashed_password`, etc.) `[BE]`
+- [x] Write `TokenPayload` schema (`sub`, `role`, `exp`) for JWT `[BE]`
 
 ---
 
