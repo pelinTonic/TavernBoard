@@ -24,7 +24,7 @@
 - [x] Inside `backend/` create: `main.py`, `models.py`, `schemas.py`, `database.py`, `websocket_manager.py`
 - [x] Inside `backend/` create subfolder `routers/` with empty `__init__.py` and five router files: `campaigns.py`, `characters.py`, `maps.py`, `initiative.py`, `battle.py`
 - [x] Scaffold frontend with Vite: `npm create vite@latest frontend -- --template react`, then `cd frontend && npm install`
-- [x] Install Tailwind CSS in the frontend: `npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p`
+- [ ] Install Tailwind CSS in the frontend: `npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p`
 - [x] Write a root `.gitignore` covering `.venv/`, `node_modules/`, `__pycache__/`, `*.db`, `uploads/`
 
 ### Python dependencies
@@ -72,21 +72,21 @@
 
 ### Backend auth
 
-- [ ] Create `auth/utils.py`: `hash_password()`, `verify_password()` using passlib bcrypt `[BE]`
-- [ ] Create `auth/jwt.py`: `create_access_token()` and `decode_access_token()` using python-jose, HS256 algo `[BE]`
-- [ ] Write a `get_current_user()` FastAPI dependency that reads `Authorization: Bearer` header, decodes JWT, and fetches user from DB `[BE]`
-- [ ] Write `require_dm()` dependency that calls `get_current_user()` then checks `role == "dm"` `[BE]`
-- [ ] Add `POST /auth/register` endpoint (username, password, role) `[BE]`
-- [ ] Add `POST /auth/login` endpoint returning `access_token` and `token_type` `[BE]`
-- [ ] Store `SECRET_KEY` and `ALGORITHM` in a `.env` file, load with `python-dotenv` `[HARD]`
+- [x] Create `auth/utils.py`: `hash_password()`, `verify_password()` using passlib bcrypt `[BE]`
+- [x] Create `auth/jwt.py`: `create_access_token()` and `decode_access_token()` using python-jose, HS256 algo `[BE]`
+- [x] Write a `get_current_user()` FastAPI dependency that reads `Authorization: Bearer` header, decodes JWT, and fetches user from DB `[BE]`
+- [x] Write `require_dm()` dependency that calls `get_current_user()` then checks `role == "dm"` `[BE]`
+- [x] Add `POST /auth/register` endpoint (username, password, role) `[BE]`
+- [x] Add `POST /auth/login` endpoint returning `access_token` and `token_type` `[BE]`
+- [x] Store `SECRET_KEY` and `ALGORITHM` in a `.env` file, load with `python-dotenv` `[HARD]`
 
 ### Frontend auth
 
-- [ ] Create `AuthContext` (React context) to hold token + user info, stored in localStorage `[FE]`
-- [ ] Write Login page with username/password form, calls `POST /auth/login`, stores token `[FE]`
-- [ ] Write Register page (same form + role select) `[FE]`
-- [ ] Create an axios (or fetch) wrapper that attaches the Bearer token to every request `[FE]`
-- [ ] Add a `ProtectedRoute` component that redirects to `/login` if no token is present `[FE]`
+- [x] Create `AuthContext` (React context) to hold token + user info, stored in localStorage `[FE]`
+- [x] Write Login page with username/password form, calls `POST /auth/login`, stores token `[FE]`
+- [x] Write Register page (same form + role select) `[FE]`
+- [x] Create an axios (or fetch) wrapper that attaches the Bearer token to every request `[FE]`
+- [x] Add a `ProtectedRoute` component that redirects to `/login` if no token is present `[FE]`
 
 ---
 

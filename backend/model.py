@@ -42,6 +42,7 @@ class User(Base):
     characters: Mapped[List["Character"]] = relationship(back_populates="user")
     battle_tokens: Mapped[List["BattleToken"]] = relationship(back_populates="owner")
     combatants: Mapped[List["InitiativeCombatant"]] = relationship(back_populates="user")
+    
 
 class Campaign(Base):
 
@@ -75,7 +76,8 @@ class Campaign(Base):
     campaign_npc: Mapped[List["NPC"]] = relationship(back_populates="campaign")
     characters: Mapped[List["Character"]] = relationship(back_populates="campaign")
     token: Mapped[List["Token"]] = relationship(back_populates="campaign")
-    attle_sessions: Mapped[List["BattleMapSession"]] = relationship(back_populates="campaign")
+    battle_sessions: Mapped[List["BattleMapSession"]] = relationship(back_populates="campaign")
+    maps: Mapped[List["Map"]] = relationship(back_populates="campaign")
 
 class CampaignMember(Base):
 
@@ -154,6 +156,7 @@ class Map(Base):
 
     parent: Mapped[Optional["Map"]] = relationship(back_populates = "children", remote_side="Map.id")
     children: Mapped[List["Map"]] = relationship(back_populates = "parent")
+    campaign: Mapped["Campaign"] = relationship(back_populates="maps")
 
 class Character(Base):
 

@@ -39,26 +39,21 @@ def register(data: UserCreate, db: Session = Depends(get_db)):
 
 @router.post("/login")
 def login(data: UserCreate, db: Session = Depends(get_db)):
-    """
-    Logs in a user and returns a JWT access token.
-    Checks username exists, verifies password,
-    then creates and returns a signed JWT.
-    """
-    # Find the user
     user = db.query(User).filter(User.username == data.username).first()
-    if not user:
+    if not user or not verify_password(data.password, user.hashed_password):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid username or password"
         )
 
-    # Check the password
-    if not verify_password(data.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid username or password"
-        )
+    token = create_access_token({"sub": user.id, "role": user.role.value})
 
-    # Create the JWT token
-    token = create_access_token({"sub": user.id, "role": user.role})
-    return {"access_token": token, "token_type": "bearer"}
+    return {
+        "access_token": token,
+        "token_type": "bearer",
+        "user": {                   # ← add this so frontend has user info
+            "id": user.id,
+            "username": user.username,
+            "role": user.role
+        }
+    }
