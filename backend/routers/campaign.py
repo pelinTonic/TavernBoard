@@ -3,7 +3,7 @@ from sqlalchemy.orm import Session
 
 from database import get_db
 from model import Campaign, CampaignMember, User
-from schemas import CampaignRead, CampaignCreate, CampaignUpdate
+from schemas import CampaignRead, CampaignCreate, CampaignUpdate, CampaignMemberCreate, CampaignMemberUpdate
 from auth.dependencies import get_current_user
 from enums import UserRole
 from typing import List
@@ -83,4 +83,57 @@ def update_campaign(
     db.refresh(campaign)
     return campaign
 
+@router.delete("/{id}")
+def delete_campaign(campaign_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)):
 
+    campaign = db.query(Campaign).filter(Campaign.id == campaign_id).first()
+    if not campaign:
+        raise HTTPException(status_code=404, detail="Campaign not found")
+    
+    if current_user.role != UserRole.dm:
+        raise HTTPException(status_code = 403, detail = "DM only")
+    
+    db.delete(campaign)
+    db.commit()
+
+
+@router.post("/{campaign_id}/member")
+def add_new_member(
+    campaign_id: int,
+    body: CampaignMemberCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)):
+
+    campaign = db.query(Campaign).filter(Campaign.id == campaign_id).first()
+    player = db.query(User).filter(User.id == body.user_id).first()
+
+    if not campaign:
+        raise HTTPException(status_code=404, detail="Campaign not found")
+    
+    if current_user.role != UserRole.dm:
+        raise HTTPException(status_code = 403, detail = "DM only")
+    
+    if not player:
+        raise HTTPException(status_code=404, detail="User not found")
+    
+    already_member = db.query(CampaignMember).filter(
+        CampaignMember.campaign_id == campaign_id,
+        CampaignMember.user_id == body.user_id
+    ).first()
+    if already_member:
+        raise HTTPException(status_code=409, detail="User is already a member")
+
+
+    campaign_member = CampaignMember(
+        user_id = body.user_id,
+        campaign_id = campaign_id,
+        role = UserRole.player
+    )
+    
+    db.add(campaign_member)
+    db.commit()
+    db.refresh(campaign_member)
+
+    return(campaign_member)

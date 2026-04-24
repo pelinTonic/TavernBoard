@@ -32,12 +32,9 @@ class UserRead(UserBase):
 
     model_config = ConfigDict(from_attributes=True)
 
-
-
 class CampaignBase(BaseModel):
     name: Optional[str] = None    
-    description: Optional[str] = None 
-
+    description: Optional[str] = None
 
 class CampaignCreate(CampaignBase):
     dm_id: int
@@ -55,11 +52,8 @@ class CampaignRead(CampaignBase):
 
     model_config = ConfigDict(from_attributes=True)
 
-
-
 class CampaignMemberBase(BaseModel):
     role: UserRole
-
 
 class CampaignMemberCreate(CampaignMemberBase):
     campaign_id: int

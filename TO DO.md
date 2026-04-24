@@ -97,8 +97,8 @@
 - [x] `GET /campaigns` — list campaigns the current user belongs to (or all for DM) `[BE]`
 - [x] `POST /campaigns` — create campaign (DM only, auto-adds DM as member) `[BE]`
 - [x] `PUT /campaigns/{id}` — update name/description (DM only) `[BE]`
-- [ ] `DELETE /campaigns/{id}` (DM only, cascade-delete members/maps/NPCs) `[BE]`
-- [ ] `POST /campaigns/{id}/members` — add a player to the campaign by username `[BE]`
+- [x] `DELETE /campaigns/{id}` (DM only, cascade-delete members/maps/NPCs) `[BE]`
+- [x] `POST /campaigns/{id}/members` — add a player to the campaign by username `[BE]`
 - [ ] `GET /campaigns/{id}/npcs`, `POST /campaigns/{id}/npcs` — CRUD NPCs `[BE]`
 - [ ] Handle portrait image upload for NPCs using python-multipart, save to `/uploads/portraits/` `[HARD]`
 
