@@ -94,9 +94,9 @@
 
 ### Backend routes — routers/campaigns.py
 
-- [ ] `GET /campaigns` — list campaigns the current user belongs to (or all for DM) `[BE]`
-- [ ] `POST /campaigns` — create campaign (DM only, auto-adds DM as member) `[BE]`
-- [ ] `PUT /campaigns/{id}` — update name/description (DM only) `[BE]`
+- [x] `GET /campaigns` — list campaigns the current user belongs to (or all for DM) `[BE]`
+- [x] `POST /campaigns` — create campaign (DM only, auto-adds DM as member) `[BE]`
+- [x] `PUT /campaigns/{id}` — update name/description (DM only) `[BE]`
 - [ ] `DELETE /campaigns/{id}` (DM only, cascade-delete members/maps/NPCs) `[BE]`
 - [ ] `POST /campaigns/{id}/members` — add a player to the campaign by username `[BE]`
 - [ ] `GET /campaigns/{id}/npcs`, `POST /campaigns/{id}/npcs` — CRUD NPCs `[BE]`

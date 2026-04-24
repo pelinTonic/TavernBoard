@@ -19,7 +19,7 @@ function LoginPage() {
 
         try {
             // axios replaces fetch — no need for headers or JSON.stringify
-            const response = await api.post("/auth/login", { username, password })
+            const response = await api.post("/auth/login/json", { username, password })
             const data = response.data   // ← axios puts response body in .data
 
             // Save token and user to context + localStorage
