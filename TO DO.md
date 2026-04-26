@@ -24,7 +24,7 @@
 - [x] Inside `backend/` create: `main.py`, `models.py`, `schemas.py`, `database.py`, `websocket_manager.py`
 - [x] Inside `backend/` create subfolder `routers/` with empty `__init__.py` and five router files: `campaigns.py`, `characters.py`, `maps.py`, `initiative.py`, `battle.py`
 - [x] Scaffold frontend with Vite: `npm create vite@latest frontend -- --template react`, then `cd frontend && npm install`
-- [ ] Install Tailwind CSS in the frontend: `npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p`
+- [x] Install Tailwind CSS in the frontend: `npm install -D tailwindcss postcss autoprefixer && npx tailwindcss init -p`
 - [x] Write a root `.gitignore` covering `.venv/`, `node_modules/`, `__pycache__/`, `*.db`, `uploads/`
 
 ### Python dependencies
@@ -99,8 +99,8 @@
 - [x] `PUT /campaigns/{id}` — update name/description (DM only) `[BE]`
 - [x] `DELETE /campaigns/{id}` (DM only, cascade-delete members/maps/NPCs) `[BE]`
 - [x] `POST /campaigns/{id}/members` — add a player to the campaign by username `[BE]`
-- [ ] `GET /campaigns/{id}/npcs`, `POST /campaigns/{id}/npcs` — CRUD NPCs `[BE]`
-- [ ] Handle portrait image upload for NPCs using python-multipart, save to `/uploads/portraits/` `[HARD]`
+- [x] `GET /campaigns/{id}/npcs`, `POST /campaigns/{id}/npcs` — CRUD NPCs `[BE]`
+- [x] Handle portrait image upload for NPCs using python-multipart, save to `/uploads/portraits/` `[HARD]`
 
 ### Frontend — campaign pages
 

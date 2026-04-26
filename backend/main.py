@@ -1,9 +1,11 @@
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from database import engine, Base
 from routers import auth
 from routers import campaign
+from routers import npcs
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -31,7 +33,8 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(CORSMiddleware, allow_origins = ["http://localhost:5173"], allow_credentials = True, allow_methods=["*"], allow_headers=["*"])
-
+app.mount("/uploads", StaticFiles(directory="uploads"), name = "uploads")
 app.include_router(auth.router)
 app.include_router(campaign.router)
+app.include_router(npcs.router)
 

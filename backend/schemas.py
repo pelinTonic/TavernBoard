@@ -78,8 +78,7 @@ class NPCBase(BaseModel):
 
 
 class NPCCreate(NPCBase):
-    campaign_id: int
-
+    pass
 
 class NPCUpdate(BaseModel):
     name: Optional[str] = None
@@ -88,9 +87,8 @@ class NPCUpdate(BaseModel):
 
 
 class NPCRead(NPCBase):
-    id: int
+    
     campaign_id: int
-
     model_config = ConfigDict(from_attributes=True)
 
 
