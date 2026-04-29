@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage"
 import RegisterPage from "./pages/RegisterPage"
 import Dashboard from "./pages/Dashboard"
 import CampaignListPage from "./pages/CampaignListPage"
+import CampaignDetailPage from "./pages/CampaignDetailPage"
 
 function App() {
     return (
@@ -24,6 +25,10 @@ function App() {
 
                 {/* Root → login */}
                 <Route path="/" element={<Navigate to="/login" />} />
+                
+                <Route path="/campaigns/:id" element={
+                    <ProtectedRoute><CampaignDetailPage /></ProtectedRoute>} />
+                    
             </Routes>
         </BrowserRouter>
     )

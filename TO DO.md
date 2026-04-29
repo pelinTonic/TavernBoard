@@ -104,8 +104,8 @@
 
 ### Frontend — campaign pages
 
-- [ ] Campaign list page: cards showing name + member count, with Create button (DM only) `[FE]`
-- [ ] Campaign detail page: tabs for Maps, NPCs, Members `[FE]`
+- [x] Campaign list page: cards showing name + member count, with Create button (DM only) `[FE]`
+- [x] Campaign detail page: tabs for Maps, NPCs, Members `[FE]`
 - [ ] NPC list with portrait thumbnails, click to expand description `[FE]`
 - [ ] NPC create/edit modal with image upload input `[FE]`
 

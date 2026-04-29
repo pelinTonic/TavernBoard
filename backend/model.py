@@ -10,25 +10,6 @@ from enums import UserRole, TokenType
 
 
 class User(Base):
-
-    """
-    SQLAlchemy model representing a user.
-
-    This model defines the structure of the `users` table and stores
-    authentication details along with the assigned user role. It also
-    establishes a one-to-many relationship with campaigns where the
-    user acts as a dungeon master (DM).
-
-    Attributes:
-        id (int): Primary key identifier for the user.
-        username (str): Unique username (max 50 characters).
-        hashed_password (str): Hashed password for authentication.
-        role (UserRole): Role assigned to the user (e.g., DM or player).
-        createad_at (Optional[datetime]): Timestamp of user creation.
-        campaign (List[Campaign]): List of campaigns managed by the user.
-        membership (List[CampaignMember]) List of campaings with user.
-    """
-
     __tablename__ = "users"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
@@ -38,32 +19,19 @@ class User(Base):
     createad_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
 
     campaign: Mapped[List["Campaign"]] = relationship(back_populates="dm")
-    membership: Mapped[List["CampaignMember"]] = relationship(back_populates="user")
+
+    membership: Mapped[List["CampaignMember"]] = relationship(
+        back_populates="user",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
+
     characters: Mapped[List["Character"]] = relationship(back_populates="user")
     battle_tokens: Mapped[List["BattleToken"]] = relationship(back_populates="owner")
     combatants: Mapped[List["InitiativeCombatant"]] = relationship(back_populates="user")
-    
 
 class Campaign(Base):
-
-    """
-    SQLAlchemy model representing a campaign.
-
-    This model defines the structure of the `campaign` table and stores
-    information about individual campaigns, including their associated
-    dungeon master (DM).
-
-    Attributes:
-        id (int): Primary key identifier for the campaign.
-        name (Optional[str]): Name of the campaign (max 100 characters).
-        description (Optional[str]): Description of the campaign (max 500 characters).
-        dm_id (int): Foreign key referencing the user who is the DM.
-        createad_at (Optional[datetime]): Timestamp of campaign creation.
-        dm (User): The user who owns and manages the campaign.
-        member (List[CampaignMember]) List of campaings with user.
-    """
-
-    __tablename__ =  "campaign"
+    __tablename__ = "campaign"
 
     id: Mapped[int] = mapped_column(primary_key=True, index=True)
     name: Mapped[Optional[str]] = mapped_column(String(100))
@@ -72,7 +40,13 @@ class Campaign(Base):
     created_at: Mapped[Optional[datetime]] = mapped_column(DateTime(timezone=True))
 
     dm: Mapped["User"] = relationship(back_populates="campaign")
-    members: Mapped[List["CampaignMember"]] = relationship(back_populates="campaign")
+
+    members: Mapped[List["CampaignMember"]] = relationship(
+        back_populates="campaign",
+        cascade="all, delete-orphan",
+        passive_deletes=True
+    )
+
     campaign_npc: Mapped[List["NPC"]] = relationship(back_populates="campaign")
     characters: Mapped[List["Character"]] = relationship(back_populates="campaign")
     token: Mapped[List["Token"]] = relationship(back_populates="campaign")
@@ -80,30 +54,29 @@ class Campaign(Base):
     maps: Mapped[List["Map"]] = relationship(back_populates="campaign")
 
 class CampaignMember(Base):
+    __tablename__ = "campaign_members"
 
-    """
-    Association model representing membership of users in campaigns.
+    campaign_id: Mapped[int] = mapped_column(
+        ForeignKey("campaign.id", ondelete="CASCADE"),
+        primary_key=True
+    )
 
-    This model defines a many-to-many relationship between users and
-    campaigns, with an additional role attribute describing the user's
-    role within a specific campaign.
+    user_id: Mapped[int] = mapped_column(
+        ForeignKey("users.id", ondelete="CASCADE"),
+        primary_key=True
+    )
 
-    Attributes:
-        campaign_id (int): Foreign key referencing the associated campaign.
-        user_id (int): Foreign key referencing the associated user.
-        role (UserRole): Role of the user within the campaign.
-        campaign (Campaign): The related campaign object.
-        user (User): The related user object.
-    """
+    role: Mapped[UserRole] = mapped_column(Enum(UserRole))
 
-    __tablename__="campaign_members"
+    campaign: Mapped["Campaign"] = relationship(
+        back_populates="members",
+        passive_deletes=True
+    )
 
-    campaign_id: Mapped[int] =mapped_column(ForeignKey("campaign.id"), primary_key=True)
-    user_id: Mapped[int] =mapped_column(ForeignKey("users.id"), primary_key=True)
-    role: Mapped[UserRole] =mapped_column(Enum(UserRole))
-
-    campaign: Mapped["Campaign"] = relationship(back_populates="members")
-    user: Mapped["User"] = relationship(back_populates="membership")
+    user: Mapped["User"] = relationship(
+        back_populates="membership",
+        passive_deletes=True
+    )
 
 class NPC(Base):
 
